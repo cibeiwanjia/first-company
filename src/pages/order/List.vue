@@ -2,7 +2,6 @@
   <div>
     <!-- 按钮 -->
     <el-button type="success" size="small" @click="toAddHandler">添加</el-button> 
-<<<<<<< HEAD
     <el-button type="danger" size="small">批量删除</el-button>
     <!-- /按钮 -->
     <!-- 表格 -->
@@ -15,21 +14,6 @@
       <el-table-column prop="waiterId" label="员工ID"></el-table-column>
       <el-table-column prop="addressId" label="地址ID"></el-table-column>
       <el-table-column label="操作">
-=======
-    <el-button type="danger" size="small" >批量删除</el-button>
-    <!-- /按钮 -->
-    <!-- 表格 -->
-    <el-table :data="orders.list" style="width:100%" >
-        
-      <el-table-column prop="id" label="订单编号"></el-table-column>
-      <el-table-column prop="orderTime" label="下单时间"></el-table-column>
-      <el-table-column prop="total" label="总价"></el-table-column>
-       <el-table-column prop="status" label="状态"></el-table-column>
-        <el-table-column prop="customerId" label="顾客ID"></el-table-column>
-        <el-table-column prop="waiterId" label="员工ID"></el-table-column>
-        <el-table-column prop="addressId" label="地址ID"></el-table-column>
-      <el-table-column fixed="right" label="操作">
->>>>>>> f5dee370b9b519441b929bd4ec5efd82e50c9f1d
         <template v-slot="slot">
             <el-button type="primary" icon="el-icon-delete" @click.prevent="toDeleteHandler(slot.row.id)"></el-button>
             <el-button type="primary" icon="el-icon-edit"  @click.prevent="toUpdateHandler(slot.row)"></el-button>
@@ -41,15 +25,11 @@
     </el-table>
     <!-- /表格结束 -->
     <!-- 分页开始 -->
-<<<<<<< HEAD
     <el-pagination 
         layout="prev, pager, next" 
         :total="orders.total" 
         @current-change="pageChangeHandler">
     </el-pagination>
-=======
-    <el-pagination layout="prev, pager, next" :total="orders.total" @current-change="pageChangeHandler"></el-pagination>
->>>>>>> f5dee370b9b519441b929bd4ec5efd82e50c9f1d
     <!-- /分页结束 -->
     <!-- 模态框 -->
     <el-dialog
@@ -119,7 +99,6 @@ export default {
     loadData(){
       let url = "http://localhost:6677/order/queryPage"
       request({
-<<<<<<< HEAD
           url,
           method:"post",
           headers:{
@@ -192,26 +171,6 @@ export default {
       }
       this.visible = true;
     }
-=======
-        url,
-        method:"POST",
-        headers:{
-          "Content-Type":"application/x-www-form-urlencoded"
-        },
-        data:querystring.stringify(this.params)
-      }).then((response)=>{
-         this.orders=response.data;
-      })
-    },
-  //当分页中当前页改变时执行 
-  pageChangeHandler(page){
-    this.params.page=page-1;
-    //加载
-    this.loadData();
-  },
-    
-    
->>>>>>> f5dee370b9b519441b929bd4ec5efd82e50c9f1d
   },
   // 用于存放要向网页中显示的数据
   data(){
@@ -219,22 +178,12 @@ export default {
       visible:false,
       orders:{},
       form:{
-<<<<<<< HEAD
         type:"order"
       },
       params:{
           page:0,
           pageSize:10
       }
-=======
-         type:"order"
-      },
-      params:{
-        page:0,
-        pageSize:10
-      }
-     
->>>>>>> f5dee370b9b519441b929bd4ec5efd82e50c9f1d
     }
   },
   created(){
