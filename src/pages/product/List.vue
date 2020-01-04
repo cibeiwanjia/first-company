@@ -41,10 +41,22 @@
         </el-form-item>
         <el-form-item label="所属栏目">
           <el-select v-model="form.categoryId">
+<<<<<<< HEAD
               <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="描述">
+=======
+              <el-option
+               v-for="item in options "
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+              ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="介绍">
+>>>>>>> f5dee370b9b519441b929bd4ec5efd82e50c9f1d
           <el-input type="textarea" v-model="form.description"></el-input>
         </el-form-item>
          
@@ -69,11 +81,19 @@ import querystring from 'querystring'
 export default {
   // 用于存放网页中需要调用的方法
   methods:{
+<<<<<<< HEAD
       loadCategory(){
       let url = "http://localhost:6677/category/findAll"
       request.get(url).then((response)=>{
         // 将查询结果设置到customers中，this指向外部函数的this
         this.options = response.data;
+=======
+    loadCategory(){
+      let url = "http://localhost:6677/category/findAll"
+      request.get(url).then((response)=>{
+        // 将查询结果设置到customers中，this指向外部函数的this
+        this.options= response.data;
+>>>>>>> f5dee370b9b519441b929bd4ec5efd82e50c9f1d
       })
     },
     loadData(){
@@ -145,7 +165,13 @@ export default {
       visible:false,
       products:[],
       options:[],
+<<<<<<< HEAD
       form:{},
+=======
+      form:{
+       
+      },
+>>>>>>> f5dee370b9b519441b929bd4ec5efd82e50c9f1d
       delarr:[],
       tableDataAmount:[]
     }
@@ -153,8 +179,12 @@ export default {
   created(){
     // this为当前vue实例对象
     // vue实例创建完毕 
+<<<<<<< HEAD
     this.loadData();
 
+=======
+    this.loadData()
+>>>>>>> f5dee370b9b519441b929bd4ec5efd82e50c9f1d
     this.loadCategory();
 
   }
