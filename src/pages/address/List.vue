@@ -1,5 +1,5 @@
 <template>
     <div>
-        栏目管理
+        地址管理
     </div>
 </template>
