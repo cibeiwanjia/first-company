@@ -13,9 +13,11 @@
 
       <el-table-column label="操作">
         <template v-slot="slot">
-          <a href="" @click.prevent="toDeleteHandler(slot.row.id)">删除</a> 
+            <el-button type="primary" icon="el-icon-delete" @click.prevent="toDeleteHandler(slot.row.id)"></el-button>
+            <el-button type="primary" icon="el-icon-edit"  @click.prevent="toUpdateHandler(slot.row)"></el-button>
+          <!-- <a href="" @click.prevent="toDeleteHandler(slot.row.id)">删除</a>  -->
           <!-- //当前行id -->
-          <a href="" @click.prevent="toUpdateHandler(slot.row)">修改</a>
+          <!-- <a href="" @click.prevent="toUpdateHandler(slot.row)">修改</a> -->
         </template>
       </el-table-column>
     </el-table>
@@ -52,9 +54,9 @@
     background: oldlace;
   }
 
-  .el-table .success-row {
+  /* .el-table .success-row {
     background: #f0f9eb;
-  }
+  } */
 </style>
 <script>
 import request from '@/utils/request'
@@ -70,12 +72,12 @@ export default {
         }
         return '';
       },
-    
+
     loadData(){
       let url = "http://localhost:6677/comment/findAll"
       request.get(url).then((response)=>{
         // 将查询结果设置到customers中，this指向外部函数的this
-        this.customers = response.data;
+        this.comments = response.data;
       })
     },
     submitHandler(){
