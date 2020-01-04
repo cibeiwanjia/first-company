@@ -12,8 +12,10 @@
             <el-table-column fixed="right" label="操作">
                 <!-- v-slot用于获取当前行数据 -->
                 <template v-slot="slot">
-                    <a href=""  @click.prevent="toDeleteHandler(slot.row.id)">删除</a>
-                    <a href="" @click.prevent="toUpdateHandler(slot.row)">修改</a>
+                  <el-button type="primary" icon="el-icon-delete" @click.prevent="toDeleteHandler(slot.row.id)"></el-button>
+              <el-button type="primary" icon="el-icon-edit"  @click.prevent="toUpdateHandler(slot.row)"></el-button>
+                    <!-- <a href=""  @click.prevent="toDeleteHandler(slot.row.id)">删除</a> -->
+                    <!-- <a href="" @click.prevent="toUpdateHandler(slot.row)">修改</a> -->
                 </template>
             </el-table-column>
         </el-table>

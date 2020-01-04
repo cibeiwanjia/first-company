@@ -14,8 +14,10 @@
         <el-table-column prop="categoryId" label="所属产品"></el-table-column>
       <el-table-column label="操作">
         <template v-slot="slot">
-          <a href="" @click.prevent="toDeleteHandler(slot.row.id)">删除</a>
-          <a href="" @click.prevent="toUpdateHandler(slot.row)">修改</a>
+          <el-button type="primary" icon="el-icon-delete" @click.prevent="toDeleteHandler(slot.row.id)"></el-button>
+            <el-button type="primary" icon="el-icon-edit"  @click.prevent="toUpdateHandler(slot.row)"></el-button>
+          <!-- <a href="" @click.prevent="toDeleteHandler(slot.row.id)">删除</a> -->
+          <!-- <a href="" @click.prevent="toUpdateHandler(slot.row)">修改</a> -->
          
         </template>
       </el-table-column>
@@ -31,22 +33,24 @@
       width="60%">
         ---{{form}}
       <el-form :model="form" label-width="80px">
-        <el-form-item label="名称">
+        <el-form-item label="产品名称">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="价格">
+        <el-form-item label="单价">
           <el-input v-model="form.price"></el-input>
         </el-form-item>
         <el-form-item label="所属栏目">
-          <el-input v-model="form.categoryId"></el-input>
+          <el-select v-model="form.categoryId">
+              <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="介绍">
-          <el-input v-model="form.description"></el-input>
+        <el-form-item label="描述">
+          <el-input type="textarea" v-model="form.description"></el-input>
         </el-form-item>
          
-          <el-form-item label="产品主图">
+          <!-- <el-form-item label="产品主图">
           <el-input v-model="form.photo"></el-input>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
 
       <span slot="footer" class="dialog-footer">
@@ -65,6 +69,13 @@ import querystring from 'querystring'
 export default {
   // 用于存放网页中需要调用的方法
   methods:{
+      loadCategory(){
+      let url = "http://localhost:6677/category/findAll"
+      request.get(url).then((response)=>{
+        // 将查询结果设置到customers中，this指向外部函数的this
+        this.options = response.data;
+      })
+    },
     loadData(){
       let url = "http://localhost:6677/product/findAll"
       request.get(url).then((response)=>{
@@ -133,9 +144,8 @@ export default {
     return {
       visible:false,
       products:[],
-      form:{
-       
-      },
+      options:[],
+      form:{},
       delarr:[],
       tableDataAmount:[]
     }
@@ -143,7 +153,9 @@ export default {
   created(){
     // this为当前vue实例对象
     // vue实例创建完毕 
-    this.loadData()
+    this.loadData();
+
+    this.loadCategory();
 
   }
 }
