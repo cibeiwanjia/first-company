@@ -31,49 +31,75 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [
-  {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
-  },
-
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true
-  },
-
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
-    }]
-  },
-
-  
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  
-
-  
-
+    {
+      path: '/login',
+      component: () => import('@/views/login/index'),
+      hidden: true
+    },
+    {
+      path: '/404',
+      component: () => import('@/views/404'),
+      hidden: true
+    },
+    {
+      path: '/',
+      component: Layout,
+      redirect: '/dashboard',
+      children: [{
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index'),
+        meta: { title: 'Dashboard', icon: 'dashboard' }
+      }]
+    },
+    {
+      path: '/customer',
+      component: Layout,
+      children: [
+        {
+          path: 'list',
+          name: 'CustomerList',
+          component: () => import('@/pages/customer/List'),
+          meta: { title: '顾客管理', icon: 'user' }
+        }
+      ]
+    },
+    {
+      path: '/employee',
+      component: Layout,
+      children: [
+        {
+          path: 'list',
+          name: 'CustomerList',
+          component: () => import('@/pages/employee/List'),
+          meta: { title: '员工管理', icon: 'tree' }
+        }
+      ]
+    },
+    {
+      path: '/category',
+      component: Layout,
+      children: [
+        {
+          path: 'list',
+          name: 'CategoryList',
+          component: () => import('@/pages/category/List'),
+          meta: { title: '栏目管理', icon: 'tree' }
+        }
+      ]
+    },
+    {
+      path: '/product',
+      component: Layout,
+      children: [
+        {
+          path: 'list',
+          name: 'ProductList',
+          component: () => import('@/pages/product/List'),
+          meta: { title: '产品管理', icon: 'tree' }
+        }
+      ]
+    },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
