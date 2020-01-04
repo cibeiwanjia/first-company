@@ -22,7 +22,7 @@
 
     <!-- /表格结束 -->
     <!-- 分页开始 -->
-    <el-pagination layout="prev, pager, next" :total="50"></el-pagination>
+    <!-- <el-pagination layout="prev, pager, next" :total="50"></el-pagination> -->
     <!-- /分页结束 -->
     <!-- 模态框 -->
     <el-dialog
