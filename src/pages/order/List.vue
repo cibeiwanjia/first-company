@@ -13,14 +13,14 @@
       <el-table-column prop="customerId" label="订单ID"></el-table-column>
       <el-table-column prop="waiterId" label="员工ID"></el-table-column>
       <el-table-column prop="addressId" label="地址ID"></el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="200px">
         <template v-slot="slot">
-            <el-button type="primary" icon="el-icon-delete" @click.prevent="toDeleteHandler(slot.row.id)"></el-button>
-            <el-button type="primary" icon="el-icon-edit"  @click.prevent="toUpdateHandler(slot.row)"></el-button>
           <!-- <a href="" @click.prevent="toDeleteHandler(slot.row.id)">删除</a> 
           
           <a href="" @click.prevent="toUpdateHandler(slot.row)">修改</a> -->
-        </template>
+          <el-button type="primary" icon="el-icon-delete"  @click.prevent="toDeleteHandler(slot.row.id)"></el-button>
+            <el-button type="primary" icon="el-icon-edit"  @click.prevent="toUpdateHandler(slot.row)"></el-button>
+         </template>
       </el-table-column>
     </el-table>
     <!-- /表格结束 -->

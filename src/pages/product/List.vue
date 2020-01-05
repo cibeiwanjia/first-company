@@ -12,7 +12,7 @@
     <el-button type="danger" size="small"  @click="delArray">批量删除</el-button>
     <!-- /按钮 -->
     <!-- 表格 -->
-    <el-table :data="products" style="width:100%" ref="multipleTable" @selection-change="handleSelectionChange">
+    <el-table :data="products.list" style="width:100%" ref="multipleTable" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="id" label="编号"></el-table-column>
       <el-table-column prop="name" label="产品名称"></el-table-column>
@@ -25,6 +25,7 @@
         <template v-slot="slot">
           <el-button type="primary" icon="el-icon-delete" @click.prevent="toDeleteHandler(slot.row.id)"></el-button>
             <el-button type="primary" icon="el-icon-edit"  @click.prevent="toUpdateHandler(slot.row)"></el-button>
+            
           <!-- <a href="" @click.prevent="toDeleteHandler(slot.row.id)">删除</a> -->
           <!-- <a href="" @click.prevent="toUpdateHandler(slot.row)">修改</a> -->
          
@@ -33,54 +34,60 @@
     </el-table>
     <!-- /表格结束 -->
     <!-- 分页开始 -->
-    <el-pagination layout="prev, pager, next" :total="50"></el-pagination>
+    <!-- 分页开始 -->
+        <el-pagination 
+            layout="prev, pager, next" 
+            :total="products.total" 
+            @current-change="pageChangeHandler">
+        </el-pagination>
+    <!-- /分页结束 -->
     <!-- /分页结束 -->
     <!-- 模态框 -->
-    <el-dialog
-      title="录入产品信息"
-      :visible.sync="visible"
-      width="60%">
-        ---{{form}}
-      <el-form :model="form" label-width="80px">
-        <el-form-item label="产品名称">
-          <el-input v-model="form.name"></el-input>
-        </el-form-item>
-        <el-form-item label="单价">
-          <el-input v-model="form.price"></el-input>
-        </el-form-item>
-        <el-form-item label="所属栏目">
-          <el-select v-model="form.categoryId">
-              <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="描述">
-          <el-input type="textarea" v-model="form.description"></el-input>
-        </el-form-item>
-         
-           <el-form-item label="产品主图">
-          <el-upload
-            class="upload-demo"
-            action="http://134.175.154.93:6677/file/upload"
+        <el-dialog
+          title="录入产品信息"
+          :visible.sync="visible"
+          width="60%">
+            ---{{form}}
+          <el-form :model="form" label-width="80px">
+            <el-form-item label="产品名称">
+              <el-input v-model="form.name"></el-input>
+            </el-form-item>
+            <el-form-item label="单价">
+              <el-input v-model="form.price"></el-input>
+            </el-form-item>
+            <el-form-item label="所属栏目">
+              <el-select v-model="form.categoryId">
+                  <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="描述">
+              <el-input type="textarea" v-model="form.description"></el-input>
+            </el-form-item>
+            
+              <el-form-item label="产品主图">
+              <el-upload
+                class="upload-demo"
+                action="http://134.175.154.93:6677/file/upload"
 
-            :before-remove="beforeRemove"
-            multiple
-            :limit="3"
-            :on-exceed="handleExceed"
-            :file-list="fileList"
-            :on-success="uploadSuccessHandler"
-            >
-            <el-button size="small" type="primary">点击上传</el-button>
-            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-          </el-upload>
-        </el-form-item>
-      </el-form>
+                :before-remove="beforeRemove"
+                multiple
+                :limit="3"
+                :on-exceed="handleExceed"
+                :file-list="fileList"
+                :on-success="uploadSuccessHandler"
+                >
+                <el-button size="small" type="primary">点击上传</el-button>
+                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+              </el-upload>
+            </el-form-item>
+          </el-form>
 
-      <span slot="footer" class="dialog-footer">
-        <el-button size="small" @click="closeModalHandler">取 消</el-button>
-        <el-button size="small" type="primary" @click="submitHandler">确 定</el-button>
-      </span>
-    </el-dialog>
-    <!-- /模态框 -->
+          <span slot="footer" class="dialog-footer">
+            <el-button size="small" @click="closeModalHandler">取 消</el-button>
+            <el-button size="small" type="primary" @click="submitHandler">确 定</el-button>
+          </span>
+        </el-dialog>
+        <!-- /模态框 -->
 
   </div>
 </template>
@@ -99,11 +106,22 @@ export default {
       })
     },
     loadData(){
-      let url = "http://localhost:6677/product/findAll"
-      request.get(url).then((response)=>{
-        // 将查询结果设置到customers中，this指向外部函数的this
-        this.products = response.data;
+      let url = "http://localhost:6677/product/query"
+      request({
+          url,
+          method:"post",
+          headers:{
+              "Content-Type":"application/x-www-form-urlencoded"
+          },
+          data:querystring.stringify(this.params)
+      }).then((response)=>{
+          this.products = response.data;
       })
+      // let url = "http://localhost:6677/product/findAll"
+      // request.get(url).then((response)=>{
+      //   // 将查询结果设置到customers中，this指向外部函数的this
+      //   this.products = response.data;
+      // })
     },
     submitHandler(){
       //this.form 对象 ---字符串--> 后台 {type:'customer',age:12}
@@ -166,19 +184,27 @@ export default {
     uploadSuccessHandler(response){
       let photo="http://134.175.154.93:8888/group1/"+response.data.id
      this.form.photo=photo
-    }
+    },
+     pageChangeHandler(page){
+          this.params.page = page-1;
+          this.loadData();
+      },
   },
   // 用于存放要向网页中显示的数据
   data(){
     return {
       visible:false,
-      products:[],
+      products:{},
       options:[],
       form:{ },
       delarr:[],
       tableDataAmount:[],
       fileList:[],
-      url: 'http://134.175.154.93:8888/group1/M00/00/19/rBAACV2QnHaAGTC4AADX6uXN4zc85.jpeg'
+      url: 'http://134.175.154.93:8888/group1/M00/00/19/rBAACV2QnHaAGTC4AADX6uXN4zc85.jpeg',
+      params:{
+          page:0,
+          pageSize:10
+      }
     }
   },
   created(){
