@@ -11,9 +11,11 @@
       <el-table-column prop="telephone" label="联系方式"></el-table-column>
       <el-table-column label="操作">
         <template v-slot="slot">
-          <a href="" @click.prevent="toDeleteHandler(slot.row.id)">删除</a> 
+          <el-button type="primary" icon="el-icon-delete" @click.prevent="toDeleteHandler(slot.row.id)"></el-button>
+            <el-button type="primary" icon="el-icon-edit"  @click.prevent="toUpdateHandler(slot.row)"></el-button>
+          <!-- <a href="" @click.prevent="toDeleteHandler(slot.row.id)">删除</a>  -->
           <!-- //当前行id -->
-          <a href="" @click.prevent="toUpdateHandler(slot.row)">修改</a>
+          <!-- <a href="" @click.prevent="toUpdateHandler(slot.row)">修改</a> -->
         </template>
       </el-table-column>
     </el-table>
@@ -71,6 +73,9 @@ export default {
           return 'warning-row';
         } else if (rowIndex === 3) {
           return 'success-row';
+        }
+        else if (rowIndex === 5) {
+          return 'warning-row';
         }
         return '';
       },

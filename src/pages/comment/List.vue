@@ -70,6 +70,9 @@ export default {
         } else if (rowIndex === 3) {
           return 'success-row';
         }
+        else if (rowIndex === 5) {
+          return 'warning-row';
+        }
         return '';
       },
 

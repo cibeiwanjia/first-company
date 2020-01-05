@@ -17,8 +17,10 @@
 <el-table-column width="200" prop="bankCard" label="银行卡号"></el-table-column>
 <el-table-column fixed="right" label="操作">
   <template v-slot="slot">
-           <a href="" @click.prevent="toDeleteHandler(slot.row.id)" >删除</a>
-          <a href="" @click.prevent="toUpdataHandler(slot.row)">修改</a>
+    <el-button type="primary" icon="el-icon-delete" @click.prevent="toDeleteHandler(slot.row.id)"></el-button>
+            <el-button type="primary" icon="el-icon-edit"  @click.prevent="toUpdateHandler(slot.row)"></el-button>
+           <!-- <a href="" @click.prevent="toDeleteHandler(slot.row.id)" >删除</a> -->
+          <!-- <a href="" @click.prevent="toUpdataHandler(slot.row)">修改</a> -->
     <!-- 显示脚本数据 -->
     <!-- {{slot}} -->
   </template>
