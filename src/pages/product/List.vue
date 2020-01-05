@@ -1,5 +1,12 @@
 <template>
-  <div>
+  <div class="demo-image">
+    <div class="block" v-for="fit in fits" :key="fit">
+    <span class="demonstration">{{ fit }}</span>
+    <el-image
+      style="width: 100px; height: 100px"
+      :src="url"
+      :fit="fit"></el-image>
+  </div>
     <!-- 按钮 -->
     <el-button type="success" size="small" @click="toAddHandler">添加</el-button> 
     <el-button type="danger" size="small"  @click="delArray">批量删除</el-button>
@@ -10,8 +17,12 @@
       <el-table-column prop="id" label="编号"></el-table-column>
       <el-table-column prop="name" label="产品名称"></el-table-column>
       <el-table-column prop="price" label="价格"></el-table-column>
+      <el-table-column prop="photo" label="产品图片">
+        
+      </el-table-column>
        <el-table-column prop="description" label="描述"></el-table-column>
-        <el-table-column prop="categoryId" label="所属产品"></el-table-column>
+        <el-table-column prop="categoryId" label="所属产品">
+        </el-table-column>
       <el-table-column label="操作">
         <template v-slot="slot">
           <el-button type="primary" icon="el-icon-delete" @click.prevent="toDeleteHandler(slot.row.id)"></el-button>
@@ -41,28 +52,18 @@
         </el-form-item>
         <el-form-item label="所属栏目">
           <el-select v-model="form.categoryId">
-<<<<<<< HEAD
               <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="描述">
-=======
-              <el-option
-               v-for="item in options "
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-              ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="介绍">
->>>>>>> f5dee370b9b519441b929bd4ec5efd82e50c9f1d
           <el-input type="textarea" v-model="form.description"></el-input>
         </el-form-item>
          
-          <!-- <el-form-item label="产品主图">
-          <el-input v-model="form.photo"></el-input>
-        </el-form-item> -->
+           <el-form-item label="产品主图">
+          <el-input v-model="form.photo">
+
+          </el-input>
+        </el-form-item>
       </el-form>
 
       <span slot="footer" class="dialog-footer">
@@ -81,19 +82,11 @@ import querystring from 'querystring'
 export default {
   // 用于存放网页中需要调用的方法
   methods:{
-<<<<<<< HEAD
-      loadCategory(){
+       loadCategory(){
       let url = "http://localhost:6677/category/findAll"
       request.get(url).then((response)=>{
         // 将查询结果设置到customers中，this指向外部函数的this
         this.options = response.data;
-=======
-    loadCategory(){
-      let url = "http://localhost:6677/category/findAll"
-      request.get(url).then((response)=>{
-        // 将查询结果设置到customers中，this指向外部函数的this
-        this.options= response.data;
->>>>>>> f5dee370b9b519441b929bd4ec5efd82e50c9f1d
       })
     },
     loadData(){
@@ -165,27 +158,18 @@ export default {
       visible:false,
       products:[],
       options:[],
-<<<<<<< HEAD
-      form:{},
-=======
-      form:{
-       
-      },
->>>>>>> f5dee370b9b519441b929bd4ec5efd82e50c9f1d
+     form:{ },
       delarr:[],
-      tableDataAmount:[]
+      tableDataAmount:[],
+      url: 'http://134.175.154.93:8888/group1/M00/00/19/rBAACV2QnHaAGTC4AADX6uXN4zc85.jpeg'
     }
   },
   created(){
     // this为当前vue实例对象
     // vue实例创建完毕 
-<<<<<<< HEAD
-    this.loadData();
-
-=======
     this.loadData()
->>>>>>> f5dee370b9b519441b929bd4ec5efd82e50c9f1d
-    this.loadCategory();
+
+    this.loadCategory()
 
   }
 }
