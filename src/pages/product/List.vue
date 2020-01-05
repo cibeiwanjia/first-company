@@ -17,13 +17,11 @@
       <el-table-column prop="id" label="编号"></el-table-column>
       <el-table-column prop="name" label="产品名称"></el-table-column>
       <el-table-column prop="price" label="价格"></el-table-column>
-      <el-table-column prop="photo" label="产品图片">
-        
-      </el-table-column>
        <el-table-column prop="description" label="描述"></el-table-column>
-        <el-table-column prop="categoryId" label="所属产品">
+        <el-table-column prop="categoryId" label="所属产品"></el-table-column>
+           <el-table-column prop="photo" label="照片">
         </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column fixed="right" label="操作">
         <template v-slot="slot">
           <el-button type="primary" icon="el-icon-delete" @click.prevent="toDeleteHandler(slot.row.id)"></el-button>
             <el-button type="primary" icon="el-icon-edit"  @click.prevent="toUpdateHandler(slot.row)"></el-button>
@@ -60,9 +58,20 @@
         </el-form-item>
          
            <el-form-item label="产品主图">
-          <el-input v-model="form.photo">
+          <el-upload
+            class="upload-demo"
+            action="http://134.175.154.93:6677/file/upload"
 
-          </el-input>
+            :before-remove="beforeRemove"
+            multiple
+            :limit="3"
+            :on-exceed="handleExceed"
+            :file-list="fileList"
+            :on-success="uploadSuccessHandler"
+            >
+            <el-button size="small" type="primary">点击上传</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+          </el-upload>
         </el-form-item>
       </el-form>
 
@@ -142,6 +151,7 @@ export default {
       
     },
     toUpdateHandler(row){
+      this.fileList=[];
       this.form=row;
       this.visible = true;
     },
@@ -149,7 +159,13 @@ export default {
       this.visible = false;
     },
     toAddHandler(){
+      this.form={};
+      this.fileList=[];
       this.visible = true;
+    },
+    uploadSuccessHandler(response){
+      let photo="http://134.175.154.93:8888/group1/"+response.data.id
+     this.form.photo=photo
     }
   },
   // 用于存放要向网页中显示的数据
@@ -158,9 +174,10 @@ export default {
       visible:false,
       products:[],
       options:[],
-     form:{ },
+      form:{ },
       delarr:[],
       tableDataAmount:[],
+      fileList:[],
       url: 'http://134.175.154.93:8888/group1/M00/00/19/rBAACV2QnHaAGTC4AADX6uXN4zc85.jpeg'
     }
   },
