@@ -3,7 +3,7 @@
         <b>栏目管理</b>
        
         <el-button size="small" type="success" @click="toAddHandler">添加</el-button>
-        <el-button size="small" type="danger">批量删除</el-button>
+        <!-- <el-button size="small" type="danger">批量删除</el-button> -->
         <el-table  :data="categories" :row-class-name="tableRowClassName">
             <el-table-column prop="id" label="编号"></el-table-column>
             <el-table-column prop="name" label="栏目名称"></el-table-column>

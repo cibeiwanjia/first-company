@@ -3,7 +3,7 @@
     <!-- 按钮 -->
   <div>
             <el-button type="primary" size="small" @click="toAddHandler">添加</el-button>
-        <el-button type="danger" size="small">批量删除</el-button>
+        <!-- <el-button type="danger" size="small">批量删除</el-button> -->
   </div>
     <!-- /按钮 -->
     <!-- 表格 -->
@@ -20,7 +20,7 @@
     <el-button type="primary" icon="el-icon-delete" @click.prevent="toDeleteHandler(slot.row.id)"></el-button>
             <el-button type="primary" icon="el-icon-edit"  @click.prevent="toUpdateHandler(slot.row)"></el-button>
            <!-- <a href="" @click.prevent="toDeleteHandler(slot.row.id)" >删除</a> -->
-          <!-- <a href="" @click.prevent="toUpdataHandler(slot.row)">修改</a> -->
+          <!-- <a href="" @click.prevent="e(slot.row)">修改</a> -->
     <!-- 显示脚本数据 -->
     <!-- {{slot}} -->
   </template>
@@ -125,7 +125,7 @@ export default {
         })
 
       },
-            toUpdataHandler(row){
+            toUpdateHandler(row){
               this.title="修改员工信息";
                this.form=row;
 this.visible = true;
