@@ -6,7 +6,7 @@
       <el-tab-pane label="全部" name="全部"></el-tab-pane>
       <el-tab-pane label="待派单" name="待派单"></el-tab-pane>
       <el-tab-pane label="待接单" name="待接单"></el-tab-pane>
-      <el-tab-pane label="待服务" name="待服务"></el-tab-pane>
+      <!-- <el-tab-pane label="待服务" name="待服务"></el-tab-pane> -->
       <el-tab-pane label="待确认" name="待确认"></el-tab-pane>
       <el-tab-pane label="已完成" name="已完成"></el-tab-pane>
     </el-tabs>
