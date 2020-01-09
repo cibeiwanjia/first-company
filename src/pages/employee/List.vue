@@ -2,23 +2,26 @@
   <div>   
     <!-- 按钮 -->
   <div>
-        <el-button type="primary" size="small" @click="toAddHandler">添加</el-button>
+            <el-button type="primary" size="small" @click="toAddHandler">添加</el-button>
         <!-- <el-button type="danger" size="small">批量删除</el-button> -->
   </div>
     <!-- /按钮 -->
     <!-- 表格 -->
-            <el-table :data="addresss" style="width: 100%">
+            <!-- <el-table :data="employees" style="width: 100%" :row-class-name="tableRowClassName"> -->
+              <el-table :data="employees" style="width: 100%">
 <el-table-column fixed="left" prop="id" label="编号"></el-table-column>
-<el-table-column fixed="left" prop="province" label="省份"></el-table-column>
-<el-table-column prop="city" label="城市"></el-table-column>
-<el-table-column prop="area" label="地区"></el-table-column>
-<el-table-column width="120" prop="address" label="具体地址"></el-table-column>
-<el-table-column width="200" prop="telephone" label="手机号"></el-table-column>
-<el-table-column width="200" prop="customerId" label="顾客编号"></el-table-column>
-<el-table-column fixed="right" label="操作">
+<el-table-column fixed="left" prop="username" label="用户名"></el-table-column>
+<el-table-column prop="realname" label="姓名"></el-table-column>
+<el-table-column prop="gender" label="性别"></el-table-column>
+<el-table-column width="120" prop="telephone" label="手机号"></el-table-column>
+<el-table-column width="200" prop="idCard" label="身份证号"></el-table-column>
+<el-table-column width="200" prop="bankCard" label="银行卡号"></el-table-column>
+<el-table-column width="200" fixed="right" label="操作">
   <template v-slot="slot">
-           <a href="" @click.prevent="toDeleteHandler(slot.row.id)" >删除</a>
-          <a href="" @click.prevent="toUpdataHandler(slot.row)">修改</a>
+    <el-button type="primary" icon="el-icon-delete" @click.prevent="toDeleteHandler(slot.row.id)"></el-button>
+            <el-button type="primary" icon="el-icon-edit"  @click.prevent="toUpdateHandler(slot.row)"></el-button>
+           <!-- <a href="" @click.prevent="toDeleteHandler(slot.row.id)" >删除</a> -->
+          <!-- <a href="" @click.prevent="toUpdataHandler(slot.row)">修改</a> -->
     <!-- 显示脚本数据 -->
     <!-- {{slot}} -->
   </template>
@@ -39,25 +42,31 @@
   :visible.sync="visible"
   width="60%">
   <el-form label-width="80px">
-    <el-form-item label="编号">
-      <el-input v-model="form.id"/>
+    <el-form-item label="用户名">
+      <el-input v-model="form.username"/>
     </el-form-item>
-    <el-form-item label="省份">
-      <el-input v-model="form.province"/>
+    <el-form-item label="密码">
+      <el-input v-model="form.password"/>
     </el-form-item>
-    <el-form-item label="地区">
-      <el-input v-model="form.area"/>
+    <el-form-item label="姓名">
+      <el-input v-model="form.realname"/>
     </el-form-item>
-    <el-form-item label="具体地址">
-      <el-input v-model="form.address"/>
+    <el-form-item label="性别">
+      <el-radio-group v-model="form.gender">
+      <!-- v-model双向数据绑定 -->
+      <el-radio label="男">男</el-radio>
+      <el-radio  label="女">女</el-radio>
+      </el-radio-group>
     </el-form-item>
     <el-form-item label="手机号">
       <el-input v-model="form.telephone"/>
     </el-form-item>
-    <el-form-item label="顾客编号">
-      <el-input v-model="form.customerId"/>
+    <el-form-item label="身份证号">
+      <el-input v-model="form.idCard"/>
     </el-form-item>
-
+        <el-form-item label="银行卡号">
+      <el-input v-model="form.bankCard"/>
+    </el-form-item>
   </el-form>
   
   <span slot="footer" class="dialog-footer">
@@ -80,11 +89,11 @@ export default {
     methods:{
       loadData(){
               // vue文档创建完毕所执行操作
-      let url="http://localhost:6677/address/findAll"
+      let url="http://localhost:6677/waiter/findAll"
       request.get(url).then((response)=>{
         //箭头函数中的this指向外部函数中的this
         // 将查询结果设置到customers中，this指向外部函数的this
-        this.addresss = response.data;
+        this.employees = response.data;
         
       })
       },
@@ -94,7 +103,7 @@ export default {
       // request.post(url,this.form)
       // 查询字符串 type=customer&age=12
       // 通过request与后台进行交互，并且要携带参数
-        let url="http://localhost:6677/address/saveOrUpdate"
+        let url="http://localhost:6677/waiter/saveOrUpdate"
         //前端向后台发送请求，保存数据的保存操作
         request({
             url,
@@ -117,8 +126,8 @@ export default {
         })
 
       },
-            toUpdataHandler(row){
-              this.title="修改地址信息";
+            toUpdateHandler(row){
+              this.title="修改员工信息";
                this.form=row;
 this.visible = true;
 
@@ -131,7 +140,7 @@ this.visible = true;
           type: 'warning'
         }).then(() => {
             //调用后台接口，完成删除操作
-            let url="http://localhost:6677/address/deleteById"
+            let url="http://localhost:6677/waiter/deleteById"
             request.get(url+"?id="+id).then((response)=>{
                 //刷新数据
                 this.loadData();
@@ -144,10 +153,10 @@ this.visible = true;
         })
         },
       toAddHandler(){
-        this.title="录入地址信息";
+        this.title="录入员工信息";
           //将form变为初始值
             this.form = {
-                type:"address"
+                type:"waiter"
             }
         this.visible = true;
       },
@@ -158,9 +167,9 @@ this.visible = true;
     data(){
       return {
         visible:false,
-        addresss:[],
+        employees:[],
         form:{
-          type:"address"
+          type:"waiter"
         }
       }
     },

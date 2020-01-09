@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '家政预约管理云平台',
+  title: 'Superb口红定制平台',
 
   /**
    * @type {boolean} true | false

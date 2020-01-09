@@ -24,8 +24,8 @@ export default {
   },
   data() {
     return {
-      title: '家政预约管理云平台',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      title: 'Superb口红定制平台',
+      logo: 'http://img3.imgtn.bdimg.com/it/u=3653123184,1343711593&fm=26&gp=0.jpg'
     }
   }
 }

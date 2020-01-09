@@ -64,7 +64,18 @@ export const constantRoutes = [
         }
       ]
     },
-    
+    {
+      path: '/employee',
+      component: Layout,
+      children: [
+        {
+          path: 'list',
+          name: 'CustomerList',
+          component: () => import('@/pages/employee/List'),
+          meta: { title: '员工管理', icon: 'tree' }
+        }
+      ]
+    },
     {
       path: '/category',
       component: Layout,
